@@ -5,7 +5,11 @@ const Day = (props) => {
         <tr className={props.day.weekend ? "weekend day" : "workday day"}>
             <td className="date-week-day">{props.day.dateWeekDay}</td>
             <td>{!props.day.weekend &&
-                <button className={props.day.dayOff ? "dayoff-switcher on" : "dayoff-switcher off"} onClick={() => props.switchDayoff(props.idx)}>Day-off</button>
+                <button
+                    className={props.day.dayOff ? "dayoff-switcher on" : "dayoff-switcher off"}
+                    onClick={() => props.switchDayoff(props.idx)}>
+                    {props.day.dayOff ? '\u2713' : ' '}
+                </button>
             }
             </td>
             <td>{props.day.workHoursWithScatter}</td>

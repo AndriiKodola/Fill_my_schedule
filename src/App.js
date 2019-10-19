@@ -17,12 +17,14 @@ class App extends Component {
 
   switchDayoff = targetIdx => {
     this.setState( prevState => ({
-        days: prevState.days.map((day, idx) => {
-                if (idx === targetIdx) {
-                    day.dayOff = !day.dayOff;
-                }
-                return day;
-            })
+      hoursPerMonth: Math.round(prevState.hoursPerMonth - prevState.days[targetIdx].workHoursWithScatter),
+      days: prevState.days.map((day, idx) => {
+              if (idx === targetIdx) {
+                  day.dayOff = !day.dayOff;
+                  day.workHoursWithScatter = 0;
+              }
+              return day;
+          })
     }));
   }
 

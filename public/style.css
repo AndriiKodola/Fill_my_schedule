@@ -79,6 +79,9 @@ button:focus {
 }
 
 button.dayoff-switcher {
+  height: 1.5em;
+  width: 1.5em;
+  border: 0;
   border-radius: 20px;
 }
 
@@ -88,6 +91,6 @@ button.on {
 }
 
 button.off {
-  color: #000000cf;
-  background-color: #00000063;
+  color:#eee;
+  background-color: #5c5a5a63;
 }

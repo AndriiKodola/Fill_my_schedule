@@ -34,9 +34,10 @@ export default class ScheduleData {
         schedule.days.push({});
         const curDay = schedule.days[i];
 
-        curDay.weekend = this.monthBase[i].weekend;
         curDay.dateWeekDay = `${i + 1}/${this.targetMonth.monthNum + 1} ${this.monthBase[i].weekDay}`;
-        curDay.dayOff = false;
+        curDay.weekend = this.monthBase[i].weekend;
+        if (!curDay.weekend) curDay.dayOff = false;
+        
 
         if (this.monthBase[i].weekend) {
           curDay.workHoursWithScatter = 0;

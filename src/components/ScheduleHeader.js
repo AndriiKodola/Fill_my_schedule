@@ -5,7 +5,7 @@ const ScheduleHeader = () => {
         <thead>
             <tr>
                 <th className="table-header">Date</th>
-                <th></th>
+                <th className="table-header">Day-offs</th>
                 <th className="table-header">Work hours</th>
             </tr>
         </thead>
