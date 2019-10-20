@@ -15,13 +15,25 @@ class App extends Component {
     new ScheduleData(8, 0.5, (new Date().getMonth()), (new Date().getFullYear())).generate()
   );
 
+  handleHoursPerMonthDueDayOffUpdate = (prevState, targetIdx) => {
+    const { hoursPerMonth, equivHoursPerDay, days } = prevState;
+    if (days[targetIdx].dayOff) {
+      return hoursPerMonth + equivHoursPerDay;
+    }
+    return hoursPerMonth - days[targetIdx].workHoursWithScatter;
+  }
+
   switchDayoff = targetIdx => {
     this.setState( prevState => ({
-      hoursPerMonth: Math.round(prevState.hoursPerMonth - prevState.days[targetIdx].workHoursWithScatter),
+      hoursPerMonth: Math.round(this.handleHoursPerMonthDueDayOffUpdate(prevState, targetIdx)),
       days: prevState.days.map((day, idx) => {
               if (idx === targetIdx) {
                   day.dayOff = !day.dayOff;
-                  day.workHoursWithScatter = 0;
+                  if (day.dayOff) {
+                    day.workHoursWithScatter = 0;
+                  } else {
+                    day.workHoursWithScatter = prevState.equivHoursPerDay;
+                  }
               }
               return day;
           })
