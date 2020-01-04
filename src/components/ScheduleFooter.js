@@ -1,14 +1,17 @@
 import React from 'react';
+import { Consumer } from './Context';
 
-const ScheduleFooter = (props) => {
+const ScheduleFooter = () => {
     return (
-        <tfoot>
-          <tr>
-            <td className="table-footer">Total</td>
-            <td></td>
-            <td className="table-footer">{props.totalHours}</td>
-          </tr>
-        </tfoot>
+      <tfoot>
+        <tr>
+          <td className="table-footer">Total</td>
+          <td></td>
+          <Consumer>
+            { ({totalHours}) => <td className="table-footer">{totalHours}</td>}
+          </Consumer>
+        </tr>
+      </tfoot>
     );
 }
 

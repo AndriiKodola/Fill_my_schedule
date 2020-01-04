@@ -1,18 +1,25 @@
 import React from 'react';
+import { Consumer } from './Context';
 
-const DayParametersInput = (props) => {
-    return (
-        <div id="input-day-parameters">
-            <span>Scatter per day:</span><br></br>
-            <input
-                type="text"
-                name="scatter"
-                placeholder=" default- no scatter"
-                onChange={props.handleValueChange}
-            />
-            <br></br>
-        </div>
-    );
+const DayParametersInput = () => {
+	return (
+		<Consumer>
+			{({ actions }) => {
+				return (
+					<div id="input-day-parameters">
+						<span>Scatter per day:</span><br></br>
+						<input
+							type="text"
+							name="scatter"
+							placeholder=" default- no scatter"
+							onChange={actions.handleValueChange}
+						/>
+						<br></br>
+					</div>
+				);
+			}}
+		</Consumer>
+	);
 }
 
 export default DayParametersInput;

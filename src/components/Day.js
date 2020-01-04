@@ -30,16 +30,16 @@ class Day extends Component {
     render () {
         return (
             <tr className={this.props.day.weekend ? "weekend day" : "workday day"}>
-                <td className="date-week-day">{this.props.day.dateWeekDay}</td>
+                <td className="date-week-day">{this.props.day.dayName}</td>
                 <td>{!this.props.day.weekend &&
                     <button
                         className={this.props.day.dayOff ? "dayoff-switcher on" : "dayoff-switcher off"}
-                        onClick={() => this.props.switchDayoff(this.props.idx)}>
+                        onClick={() => this.props.dayOffSwitcher(this.props.idx)}>
                         {this.props.day.dayOff ? '\u2713' : ' '}
                     </button>
                 }
                 </td>
-                <td>{this.props.day.workHoursWithScatter}</td>
+                <td>{this.props.day.hours}</td>
                 <td>{/** PROJECT IF PROJECTS ADDED */}</td>
             </tr>
         );

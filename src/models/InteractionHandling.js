@@ -1,45 +1,35 @@
 import Month from './Month';
+import {
+  switchDayOff,
+  updateHours,
+  getTotalMonthHours,
+  generateMonthName,
+  extendMonth
+} from './ScheduleActions';
 
 export { 
-          getEquivHoursPerDay,
           getNumInput,
           getMonthInput,
           handleCopyToClipboard
         };
 
 /**
- * Transforms needed work hours per day, week or month to equivalent hours per day
- * 
- * @param {int} workDaysInMonth
- * @param {object} neededHoursInput - needed hours {perDay, perWeek, perMonth}
- * 
- * @return {int} - equivalent numer of hours per day
- */
-const getEquivHoursPerDay = (workDaysInMonth, neededHoursInput) => {
-  const { hoursPerDay, hoursPerWeek, hoursPerMonth } = neededHoursInput;
-  
-  if (hoursPerDay) {
-      return hoursPerDay;
-  } else if (hoursPerWeek) {
-      return hoursPerWeek / 5;
-  } else if (hoursPerMonth) {
-      return hoursPerMonth / workDaysInMonth;
-  } else {
-    return 0;
-  }
-}
-
-/**
- * 
+ * Reads and parses user input from input filed
  * @param {HTML input reference} inputField
- * 
  * @return {float} - floar input 
  */
 const getNumInput = inputField => parseFloat(inputField.value);
-
+/**
+ * Reads and parses user input from input filed for month
+ * @param {HTML input reference} inputField
+ * @return {float} - floar input 
+ */
 const getMonthInput = inputMonth => getNumInput(inputMonth) - 1;
 
-
+/**
+ * Selects contents of a given HTML node
+ * @param {HTML node} el 
+ */
 const selectElementContents = el => {
 	let body = document.body, range, sel;
 	if (document.createRange && window.getSelection) {
@@ -60,12 +50,16 @@ const selectElementContents = el => {
 	}
 }
 
+/**
+ * Copies selected element to the clipboard
+ */
 const handleCopyToClipboard = el => {
   selectElementContents(el);
   document.execCommand('copy');
 
   alert('Table is in clipboard now!');
 }
+
 
 
 
@@ -100,3 +94,6 @@ export default class inputData {
     }
   }
 }
+
+
+
