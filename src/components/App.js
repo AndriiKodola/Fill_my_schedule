@@ -1,8 +1,7 @@
 import React from 'react';
-import { Provider } from './Context';
 import InteractionPanel from './InteractionPanel';
 import Schedule from './Schedule';
-import { handleCopyToClipboard } from '../models/ScheduleActions';
+import { handleCopyToClipboard } from '../models/InteractionHandling';
 
 const App = () => {
   const scheduleRef = React.createRef();

@@ -10,7 +10,7 @@ const InteractionPanel = () => {
 			<Consumer>
 				{({ actions }) => {
 					return (
-						<form id="input-form" action="index.html" method="post" onSubmit={actions.handleSubmit}>
+						<form id="input-form" action="index.html" method="post" onSubmit={(e)=>actions.submitHandler(e)}>
 							<span>Please, enter:</span><br></br>
 
 							<WorkHoursInput />

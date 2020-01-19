@@ -1,12 +1,49 @@
-import Day from 'Day';
+import Day from './Day';
 
 export default class Month{
 	constructor(monthNum, yearNum, hours, scatter) {
 		this.name = this.genMonthName(monthNum, yearNum);
-		this.workDaysNum = this.genWorkDaysNum(this.month);
-		this.month = this.genMonth(monthNum, yearNum, this.genEquivHoursPerDay(this.workDaysNum, hours), scatter);
+		this.workDaysNum = this.genWorkDaysNum(this.genMonthDaysNum(monthNum, yearNum));
+		this.hoursPerDay = this.genEquivHoursPerDay(this.workDaysNum, hours);
+		this.month = this.genMonth(monthNum, yearNum, this.hoursPerDay, scatter);
 		this.totalHours = this.genTotalMonthHours(this.month);
 	}
+
+	/***********************************************
+	 ***************** SETTERS *********************
+	 **********************************************/
+
+	setName = (monthNum, yearNum) => {
+		this.name = this.genMonthName(monthNum, yearNum);
+	}
+
+	setWorkDaysNum = (monthNum, yearNum) => {
+		this.workDaysNum = this.genWorkDaysNum(this.genMonthDaysNum(monthNum, yearNum));
+	}
+
+	setHoursPerDay = (workDaysNum, hours) => {
+		this.hoursPerDay = this.genEquivHoursPerDay(workDaysNum, hours);
+	}
+
+	setMonth = (monthNum, yearNum, hours, scatter) => {
+		this.month = this.genMonth(monthNum, yearNum, hours, scatter);
+	}
+
+	setTotalHours = month => {
+		this.totalHours = this.genTotalMonthHours(month);
+	}
+
+	setAll = (monthNum, yearNum, hours, scatter) => {
+		this.setName(monthNum, yearNum);
+		this.setWorkDaysNum(monthNum, yearNum);
+		this.setHoursPerDay(this.workDaysNum, hours);
+		this.setMonth(monthNum, yearNum, hours, scatter);
+		this.setTotalHours(this.month);
+	}
+
+	/***********************************************
+	 ***************** GENERATORS ******************
+	 **********************************************/
 
 	/**
 	* Creates month 'name'
@@ -24,7 +61,9 @@ export default class Month{
 	 * 
 	 * @returns {array} - Week day index array for whole month ([0,1,2,3,4,5,6,0,1,2,...])
 	 */
-	genMonthDaysNum = (firstDayNum, monthLen) => {
+	genMonthDaysNum = (monthNum, yearNum) => {
+		const firstDayNum = new Date(yearNum, monthNum, 1).getDay();
+		const monthLen = new Date(yearNum, monthNum + 1, 0).getDate();
 		const daysNumArray = [];
 		let currDayNum = firstDayNum;
 
@@ -42,9 +81,9 @@ export default class Month{
 	 * 
 	 * @returns {int}
 	 */
-	genWorkDaysNum = month => {
-		return month.reduce((acc, cur) => {
-			return cur.weekend ? acc : ++acc;
+	genWorkDaysNum = daysNumArray => {
+		return daysNumArray.reduce((acc, cur) => {
+			return cur === 5 || cur === 6 ? acc : ++acc;
 		}, 0);
 	}
 
@@ -80,14 +119,6 @@ export default class Month{
 	}
 
 	/**
-	 * Updates total hours by given value
-	 * @param {float} hoursChange 
-	 */
-	updTotalMonthHours = hoursChange => {
-		this.totalHours += hoursChange;
-	}
-
-	/**
 	 * Generates month 
 	 * @param {float} hours 
 	 * @param {float} scatter 
@@ -112,15 +143,25 @@ export default class Month{
 	 *   ...
 	 * ])
 	 */
-	genMonth = () => {
-		const firstDayNumInMonth = new Date(this.yearNum, this.monthNum, 1).getDay();
-		const monthLen = new Date(this.yearNum, this.monthNum + 1, 0).getDate();
-		const monthDaysNumArray = this.genMonthDaysNum(firstDayNumInMonth, monthLen);
+	genMonth = (monthNum, yearNum, hours, scatter) => {
+		const monthDaysNumArray = this.genMonthDaysNum(monthNum, yearNum)
 
 		const month = monthDaysNumArray.map((dayNum, index) => {
-			return new Day(++index, dayNum, hoursPerDay, scatter);
+			return new Day(++index, dayNum, hours, scatter);
 		});
 
 		return month;
 	};
+
+	/***********************************************
+	 ***************** UPDATERS ********************
+	 **********************************************/
+
+	/**
+	 * Updates total hours by given value
+	 * @param {float} hoursChange 
+	 */
+	updTotalMonthHours = hoursChange => {
+		this.totalHours += hoursChange;
+	}
 }

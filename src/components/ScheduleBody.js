@@ -5,11 +5,11 @@ import Day from './Day';
 const ScheduleBody = () => {
     return (
         <Consumer>
-            { ({days, actions}) => {
+            { ({month, actions}) => {
                 return (
                     <tbody>
-                        {days.map((day, idx) => 
-                            <Day day={day} key={idx.toString()} idx={idx} dayOffSwitcher={actions.dayOffSwitcher}/>
+                        {month.map((day, idx) => 
+                            <Day day={day} key={idx.toString()} dayOffSwitcher={actions.dayOffSwitcher}/>
                         )}
                     </tbody>  
                 );

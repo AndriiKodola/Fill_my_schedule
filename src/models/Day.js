@@ -1,8 +1,13 @@
+
+import { round } from './utils';
+
 export default class Day{
   constructor(dateDayNum, dayNum, hoursPerDay, scatter) {
+    this.monthIdx = dateDayNum - 1;
     this.dayName = this.genDayName(dateDayNum, dayNum);
     this.weekend = this.isWeekend(dayNum);
-    this.hours = this.genHours(hoursPerDay, scatter);
+    this.baseHours = this.genHours(hoursPerDay, scatter);
+    this.hours = this.baseHours;
     this.dayOff = false;
   }
 
@@ -22,6 +27,8 @@ export default class Day{
         return `${dateDayNum} ${"Friday"}`;
       case 6:
         return `${dateDayNum} ${"Saturday"}`;
+      default:
+        return 'Incorrect day num'
       }
   }
 
@@ -37,11 +44,11 @@ export default class Day{
   }
 
   genHours = (hours, scatter) => {
-    if (this.weekend) {
-      workHours = 0;
-    } else {
+    let workHours = 0;
+    
+    if (!this.weekend) {
       const sign = Math.random() < 0.5 ? -1 : 1;
-      workHours = Math.round(sign * Math.random() * scatter + hours);
+      workHours = round(sign * Math.random() * scatter + hours, 1);
     }
 
     return workHours;
@@ -52,7 +59,8 @@ export default class Day{
    * @param {object} day 
    */
   switchDayOff = () => {
-    this.day.dayOff = !this.day.dayOff;
+    this.dayOff = !this.dayOff;
+    this.hours = this.dayOff ? 0 : this.baseHours;
   }
 
   /**

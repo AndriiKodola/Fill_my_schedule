@@ -6,7 +6,7 @@
  * 
  * @returns {boolean}
  */
-export const indentical = (obj1, obj2) => {
+const indentical = (obj1, obj2) => {
   if (typeof obj1 !== 'object' || typeof obj2 !== 'object') {
     return Object.is(obj1, obj2);
   }
@@ -70,7 +70,7 @@ export const indentical = (obj1, obj2) => {
  * 
  * @returns {object} object with updated proerty
  */
-export const updateProp = (object, propName, value) => {
+const updateProp = (object, propName, value) => {
   if (Number.isNaN(value)) value = 0;
   if (typeof object !== 'object') {
     throw TypeError(`Passed argument ${object} is not an object`);
@@ -107,9 +107,35 @@ export const updateProp = (object, propName, value) => {
  * 
  * @returns {object} object with updated proerties
  */
-export const updateProps = (object, propNames, values) => {
+const updateProps = (object, propNames, values) => {
   propNames.forEach((propName, idx) => {
     object = updateProp(object, propName, values[idx]);
   });
   return object;
 }
+
+/**
+ * Rounds given number to the given decimal numbers
+ * 
+ * @param {number} number
+ * @param {int} decPlaces - desired number of decimal places
+ * 
+ * @returns {number} - rounded number
+ */
+const round = (number, decPlaces) => {
+  if (decPlaces < 0) {
+    throw new RangeError('The argument decimal places must be non-negative');
+  }
+  if (decPlaces % 1 !== 0) {
+    throw new RangeError ('The argument decimal places must be a whole number');
+  }
+  const decPlacesShift = decPlaces === 0 ? 1 : decPlaces * 10;
+  return Math.round(number * decPlacesShift) / decPlacesShift;
+}
+
+export { 
+  indentical,
+  updateProp,
+  updateProps,
+  round
+};

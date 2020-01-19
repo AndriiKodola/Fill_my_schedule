@@ -9,32 +9,32 @@ import Col from 'react-bootstrap/Col';
 const YearCalendar = () => {
     return (
 			<Consumer>
-				{ ({month, actions}) => {
+				{ ({state, actions}) => {
 					return (
-						<DropdownButton id="dropdown-basic-button" title={`${month.monthNum}/${month.yearNum}`}>
+						<DropdownButton id="dropdown-basic-button" title={`${state.monthNum+1}/${state.yearNum}`}>
 							<Container>
 								<Row>
-									<Col><Dropdown.Item onClick={() => actions.updateYear(-1)}>{'<'}</Dropdown.Item></Col>
-									<Col><Dropdown.Item >{month.yearNum}</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateYear(1)}>{'>'}</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('yearNum', state.yearNum-1)}>{'<'}</Dropdown.Item></Col>
+									<Col><Dropdown.Item >{state.yearNum}</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('yearNum', state.yearNum+1)}>{'>'}</Dropdown.Item></Col>
 								</Row>
 								<Row>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(1)}>1</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(2)}>2</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(3)}>3</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(4)}>4</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 0)}>1</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 1)}>2</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 2)}>3</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 3)}>4</Dropdown.Item></Col>
 								</Row>
 								<Row>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(5)}>5</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(6)}>6</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(7)}>7</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(8)}>8</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 4)}>5</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 5)}>6</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 6)}>7</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 7)}>8</Dropdown.Item></Col>
 								</Row>
 								<Row>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(9)}>9</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(10)}>10</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(11)}>11</Dropdown.Item></Col>
-									<Col><Dropdown.Item onClick={() => actions.updateMonth(12)}>12</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 8)}>9</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 9)}>10</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 10)}>11</Dropdown.Item></Col>
+									<Col><Dropdown.Item onClick={() => actions.setProp('monthNum', 11)}>12</Dropdown.Item></Col>
 								</Row>
 							</Container>
 						</DropdownButton>
